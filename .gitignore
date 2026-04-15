@@ -1,0 +1,11 @@
+.env
+
+
+chat_history.db
+faiss_index_store/
+
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
