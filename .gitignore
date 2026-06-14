@@ -1,11 +1,58 @@
+# ── 密钥与本地配置（切勿提交）────────────────────────
 .env
+.env.local
+.env.*.local
 
-
+# ── 运行时数据（含用户聊天与私有文档索引）────────────
 chat_history.db
+*.db-journal
 faiss_index_store/
 
-
+# ── Python ───────────────────────────────────────────
 __pycache__/
-*.pyc
-.ipynb_checkpoints/
+*.py[cod]
+*$py.class
+*.pyo
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── 虚拟环境 ─────────────────────────────────────────
 .venv/
+venv/
+env/
+ENV/
+
+# ── 测试与覆盖率 ─────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+
+# ── 类型检查 / Lint 缓存 ─────────────────────────────
+.mypy_cache/
+.ruff_cache/
+
+# ── Jupyter ────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── IDE（个人配置，按需保留 .vscode 可删掉下面两行）──
+.idea/
+*.swp
+*.swo
+
+# ── 系统文件 ─────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── 日志与临时文件 ───────────────────────────────────
+*.log
+*.tmp
+temp/
+tmp/

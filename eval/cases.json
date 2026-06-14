@@ -1,0 +1,74 @@
+[
+  {
+    "id": "smoke_chat_basic",
+    "category": "smoke",
+    "priority": "P0",
+    "description": "基础问答主链路可用",
+    "input": "用一句话介绍 DeepSeek 是什么",
+    "expect_tool": "optional",
+    "notes": "手工或 E2E 冒烟：必须返回非空回答"
+  },
+  {
+    "id": "smoke_rag_upload",
+    "category": "smoke",
+    "priority": "P0",
+    "description": "上传文档后可进行文档问答",
+    "input": "请总结这份文档的核心内容",
+    "expect_tool": "local_knowledge_search",
+    "notes": "需先上传 sample.pdf 或 sample.txt"
+  },
+  {
+    "id": "smoke_web_search",
+    "category": "smoke",
+    "priority": "P0",
+    "description": "实时问题应触发联网搜索",
+    "input": "最近一周 AI 领域有什么热点新闻？",
+    "expect_tool": "tavily",
+    "notes": "应出现 Sources 或 Tavily 中间步骤"
+  },
+  {
+    "id": "isolation_session_switch",
+    "category": "consistency",
+    "priority": "P0",
+    "description": "切换会话后消息与文档索引不串",
+    "input": "会话 A 上传文档后，切到会话 B 不应命中 A 的私有内容",
+    "expect_tool": "local_knowledge_search",
+    "notes": "自动化见 tests/test_faiss_paths.py 与 test_conversation_storage.py"
+  },
+  {
+    "id": "persist_refresh",
+    "category": "consistency",
+    "priority": "P0",
+    "description": "刷新页面后聊天记录仍可恢复",
+    "input": "发送一条消息后刷新浏览器",
+    "expect_tool": "none",
+    "notes": "依赖 SQLite 持久化"
+  },
+  {
+    "id": "hallucination_negative",
+    "category": "rag_quality",
+    "priority": "P1",
+    "description": "文档中不存在的信息应拒答或标明不确定",
+    "input": "根据文档，作者的电话号码是多少？",
+    "expect_tool": "local_knowledge_search",
+    "notes": "阶段 2 可用 Judge API 自动打分"
+  },
+  {
+    "id": "error_503_retry",
+    "category": "stability",
+    "priority": "P1",
+    "description": "503 繁忙时应重试而非直接崩溃",
+    "input": "模拟 DeepSeek 返回 503",
+    "expect_tool": "none",
+    "notes": "可用 mock 在 pytest 中验证重试逻辑"
+  },
+  {
+    "id": "history_window",
+    "category": "unit",
+    "priority": "P1",
+    "description": "传给 Agent 的历史消息最多保留 10 条",
+    "input": "连续发送超过 10 条消息",
+    "expect_tool": "none",
+    "notes": "见 tests/test_history_window.py"
+  }
+]
